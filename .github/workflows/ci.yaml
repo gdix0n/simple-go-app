@@ -9,6 +9,8 @@ jobs:
 
   build:
     name: Build
+    env:
+      SHA: ${GITHUB_SHA::6}
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Repo
@@ -31,7 +33,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${GITHUB_SHA::6}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:$SHA
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
