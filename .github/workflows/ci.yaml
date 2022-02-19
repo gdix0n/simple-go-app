@@ -27,14 +27,6 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.0
 
-      - name: Run chart-testing (list-changed)
-        id: list-changed
-        run: |
-          changed=$(ct list-changed)
-          if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
-          fi
-
       - name: Run chart-testing (lint)
         run: ct lint
 
@@ -73,12 +65,6 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/simple_go_app
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
             type=sha
 
       - name: Build and push
@@ -92,18 +78,3 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    continue-on-error: true
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Install Datree
-        run: curl https://get.datree.io | /bin/bash
-
-      - name: Run Datree's policy check
-        run: datree test ~/charts/simple-go-app
