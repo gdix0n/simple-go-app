@@ -56,4 +56,4 @@ jobs:
         uses: helm/kind-action@v1.2.0
 
       - name: Run chart-testing (install)
-        run: ct install --charts charts/simple-go-app --helm-extra-args "--set .Values.image.tag=${{ github.sha }}"
+        run: ct install --charts charts/simple-go-app --helm-extra-args "--set .image.tag=${{ github.sha }}"
