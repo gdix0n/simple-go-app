@@ -28,18 +28,16 @@ jobs:
         uses: helm/chart-testing-action@v2.2.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --chart-dirs charts/simple-go-app
+        run: ct lint --charts charts/simple-go-app
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
 
       - name: Run chart-testing (install)
-        run: ct install --chart-dirs charts/simple-go-app
+        run: ct install --charts charts/simple-go-app
 
   build:
     name: Build
-    env:
-      SHA: ${GITHUB_SHA::6}
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Repo
@@ -62,7 +60,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ github.sha}}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ github.sha::6}}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
