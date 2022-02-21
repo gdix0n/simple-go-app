@@ -29,6 +29,9 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
 
+      - name: Show substituted values file
+        run: cat charts/simple-go-app/ci/ci-values.yaml
+
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.0
 
