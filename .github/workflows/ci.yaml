@@ -24,6 +24,11 @@ jobs:
         with:
           python-version: 3.7
 
+      - name: Run chart-testing (lint)
+        run: envsubst < ci/ci-values.yaml.tpl > ci/ci-values.yaml
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.0
 
@@ -56,4 +61,4 @@ jobs:
         uses: helm/kind-action@v1.2.0
 
       - name: Run chart-testing (install)
-        run: ct install --charts charts/simple-go-app --helm-extra-args "--set .image.tag=${{ github.sha }}"
+        run: ct install --charts charts/simple-go-app
