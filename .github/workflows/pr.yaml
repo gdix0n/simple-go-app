@@ -1,12 +1,9 @@
-name: Deployment CI
-
+name: pr
 on:
-  push:
+  pull_request:
     branches:
-      - main
-
+    - main
 jobs:
-
   lint-test:
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +44,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ github.event.pull_request.number }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -56,4 +53,4 @@ jobs:
         uses: helm/kind-action@v1.2.0
 
       - name: Run chart-testing (install)
-        run: ct install --charts charts/simple-go-app "--set .image.tag=${{ github.sha }}"
+        run: ct install --charts charts/simple-go-app "--set .image.tag=${{ github.event.pull_request.number }}"
