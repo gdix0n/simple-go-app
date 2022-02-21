@@ -27,7 +27,7 @@ jobs:
       - name: Run env substitution
         run: envsubst < charts/simple-go-app/ci/ci-values.yaml.tpl > charts/simple-go-app/ci/ci-values.yaml
         env:
-          IMAGE_TAG: ${{ github.sha::6 }}
+          IMAGE_TAG: ${ github.sha::6 }
 
       - name: Show substituted values file
         run: cat charts/simple-go-app/ci/ci-values.yaml
