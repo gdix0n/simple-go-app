@@ -5,7 +5,6 @@ on:
     - main
 jobs:
   go-test:
-    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -76,4 +75,4 @@ jobs:
         uses: helm/kind-action@v1.2.0
 
       - name: Run chart-testing (install)
-        run: ct install --charts charts/simple-go-app "--set .image.tag=${{ github.event.pull_request.number }}"
+        run: ct install --charts charts/simple-go-app
