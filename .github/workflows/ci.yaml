@@ -58,7 +58,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ IMAGE_TAG }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${ IMAGE_TAG }
         env:
           IMAGE_TAG: ${GITHUB_SHA}
 
