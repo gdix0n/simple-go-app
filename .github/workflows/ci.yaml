@@ -27,7 +27,7 @@ jobs:
       - name: Run env substitution
         run: envsubst < charts/simple-go-app/ci/ci-values.yaml.tpl > charts/simple-go-app/ci/ci-values.yaml
         env:
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${{ github.sha::6 }}
 
       - name: Show substituted values file
         run: cat charts/simple-go-app/ci/ci-values.yaml
@@ -55,7 +55,9 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ IMAGE_TAG }}
+        env:
+          IMAGE_TAG: ${{ github.sha::6 }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
