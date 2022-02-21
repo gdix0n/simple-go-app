@@ -66,7 +66,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ github.event.pull_request.number }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple-go-app:${{ github.event.pull_request.number }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
