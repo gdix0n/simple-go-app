@@ -24,10 +24,14 @@ jobs:
         with:
           python-version: 3.7
 
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
       - name: Run env substitution
         run: envsubst < charts/simple-go-app/ci/ci-values.yaml.tpl > charts/simple-go-app/ci/ci-values.yaml
         env:
-          IMAGE_TAG: ${ github.sha::6 }
+          IMAGE_TAG: ${{ steps.vars.outputs.sha_short }}
 
       - name: Show substituted values file
         run: cat charts/simple-go-app/ci/ci-values.yaml
@@ -57,16 +61,13 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/simple_go_app:${{ IMAGE_TAG }}
         env:
-          IMAGE_TAG: ${{ github.sha::6 }}
+          IMAGE_TAG:  ${{ steps.vars.outputs.sha_short }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
-
-      - name: Create kind cluster
-        run: helm ls
 
       - name: Run chart-testing (install)
         run: ct install --charts charts/simple-go-app
