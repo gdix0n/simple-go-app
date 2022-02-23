@@ -52,9 +52,9 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls:
-    - secretName: chart-example-tls
+    - secretName: wildcard-cert
       hosts:
-        - wildcard-cert
+        - simple-go-app.gdixon.io
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
