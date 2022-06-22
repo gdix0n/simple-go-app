@@ -3,6 +3,18 @@ entries:
   simple-go-app:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-06-22T20:15:57.327311606Z"
+    description: A Helm chart for Kubernetes
+    digest: 850908ef025505a67dd30a667cd95d3e731ac75932e9a3c286ecc2cc9045eb3e
+    maintainers:
+    - name: gdix0n
+    name: simple-go-app
+    type: application
+    urls:
+    - https://github.com/gdix0n/simple-go-app/releases/download/simple-go-app-1.0.1/simple-go-app-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-02-23T22:10:07.05854123Z"
     description: A Helm chart for Kubernetes
     digest: 5a389fb5a0a759aae4dd30172e7665c4759644cfbbb0223c5515015aa162b0c5
@@ -25,4 +37,4 @@ entries:
     urls:
     - https://github.com/gdix0n/simple-go-app/releases/download/simple-go-app-0.1.0/simple-go-app-0.1.0.tgz
     version: 0.1.0
-generated: "2022-02-23T22:10:07.05855723Z"
+generated: "2022-06-22T20:15:57.327378306Z"
