@@ -47,7 +47,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple-go-app:sha-${{ steps.vars.outputs }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple-go-app:${{ steps.vars.outputs }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
