@@ -25,7 +25,9 @@ jobs:
 
       - name: Set outputs
         id: version
-        run: grep 'appVersion:' charts/simple-go-app/Chart.yaml | awk '{ print $2}' | tr -d \"
+        run: |
+          VER=$(grep 'appVersion:' charts/simple-go-app/Chart.yaml | awk '{ print $2}' | tr -d \")
+          echo "VERSION=$VER" >> $GITHUB_ENV
 
       - name: Check outputs
         run: echo ${{ steps.version.outputs }}
@@ -47,7 +49,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple-go-app:${{ steps.version.outputs }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple-go-app:${{ env.VERSION }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
