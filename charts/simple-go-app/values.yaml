@@ -4,6 +4,9 @@
 
 replicaCount: 2
 
+deployment:
+  enabled: false
+
 image:
   repository: gdixon7623/simple-go-app
   pullPolicy: IfNotPresent
